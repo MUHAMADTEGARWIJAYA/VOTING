@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.js";
 import voteRoutes from "./routes/voteRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js"
 import helmet from "helmet";
+import cors from "cors";
 import ExpressMongoSanitize from 'express-mongo-sanitize'
 dotenv.config();
 const port = 3000
@@ -19,7 +20,9 @@ app.use("/api/v1/auth", voteRoutes);
 app.use("/api/v1/auth/admin", adminRoutes);
 
 // middleware
-
+app.use(cors({
+    origin: "*", // Ganti dengan domain yang diizinkan untuk produksi
+  }));
 app.use(express.json())
 app.use(helmet())
 app.use(ExpressMongoSanitize())
